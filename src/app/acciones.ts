@@ -9,6 +9,7 @@ import {
   CAMPO_CONSENTIMIENTO,
   CAMPO_TRAMPA,
   COOKIE_COMPROBANTE,
+  DIAS_COOKIE_COMPROBANTE,
   ESTADO_INICIAL,
   type EstadoFormulario,
 } from "@/lib/formulario";
@@ -141,7 +142,7 @@ export async function preinscribir(
   // enlace. El codigo ya viaja en la URL y dentro del QR, asi que no agrega
   // exposicion.
   (await cookies()).set(COOKIE_COMPROBANTE, codigo, {
-    maxAge: 60 * 60 * 24 * 120,
+    maxAge: 60 * 60 * 24 * DIAS_COOKIE_COMPROBANTE,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
     path: "/",

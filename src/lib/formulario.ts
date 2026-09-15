@@ -18,6 +18,9 @@ export const CONTACTO_DATOS = "privacidad@smt.gob.ar";
 /** Dias que se conservan los datos despues del evento. */
 export const DIAS_RETENCION = 90;
 
+/** Dias que dura la cookie del comprobante en el navegador. */
+export const DIAS_COOKIE_COMPROBANTE = 15;
+
 /** Nombre de la cookie que permite recuperar el comprobante en el mismo navegador. */
 export const COOKIE_COMPROBANTE = "comprobante_fiesta";
 
