@@ -1,0 +1,7 @@
+Colocá acá el logo institucional en blanco con el nombre exacto:
+
+    logo-smt-blanco.png
+
+Se muestra arriba a la izquierda del hero, a 44 x 12 (176 x 48 px aprox.).
+Mientras el archivo no exista, el espacio queda reservado y vacío: la maqueta
+no se rompe.

@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-[#f5f7fb] font-sans text-base font-normal text-smt-texto antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-extrabold text-smt-tinta;
+  }
+
+  strong,
+  b {
+    @apply font-bold;
+  }
+
+  /* Foco visible en todo el sitio (accesibilidad). */
+  :focus-visible {
+    outline: 3px solid #126ff5;
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  .hero :focus-visible {
+    outline-color: #f2d91c;
+  }
+}
+
+@layer components {
+  .tarjeta {
+    @apply rounded-2xl border border-smt-linea bg-white shadow-tarjeta;
+  }
+
+  .etiqueta {
+    @apply mb-1.5 block text-sm font-bold text-smt-tinta;
+  }
+
+  .campo {
+    @apply w-full rounded-xl border border-smt-linea bg-white px-4 py-3 text-base text-smt-tinta transition-colors placeholder:text-smt-gris/80 hover:border-smt-medio;
+  }
+
+  .campo-invalido {
+    @apply border-smt-rojo bg-[#fef5f5] hover:border-smt-rojo;
+  }
+
+  .ayuda {
+    @apply mt-1.5 text-sm text-smt-gris;
+  }
+
+  .mensaje-error {
+    @apply mt-1.5 flex items-start gap-1.5 text-sm font-bold text-smt-rojo;
+  }
+
+  .boton-primario {
+    @apply inline-flex w-full items-center justify-center gap-2 rounded-xl bg-smt-azul px-6 py-3.5 text-base font-bold text-white transition-colors hover:bg-smt-oscuro disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto;
+  }
+
+  .boton-secundario {
+    @apply inline-flex w-full items-center justify-center gap-2 rounded-xl border border-smt-linea bg-white px-6 py-3.5 text-base font-bold text-smt-azul transition-colors hover:border-smt-medio hover:bg-[#f1f7ff] sm:w-auto;
+  }
+}
