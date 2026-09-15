@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 
 import "./globals.css";
+import "./landing-fiesta.css";
 
 export const metadata: Metadata = {
   title: "Fiesta de la Ciudad — San Miguel de Tucumán",

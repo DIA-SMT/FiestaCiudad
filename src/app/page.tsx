@@ -1,107 +1,150 @@
 import Image from "next/image";
-
 import FormularioPreinscripcion from "@/components/formulario-preinscripcion";
-import { LineaInstitucional, LogoSmt, PieInstitucional, TituloSeccion } from "@/components/marca";
+import { AnimacionesLanding } from "@/components/animaciones-landing";
+import { Icono } from "@/components/identidad-fiesta";
 
-const PASOS = [
+const PREGUNTAS = [
   {
-    titulo: "Completá el formulario",
-    detalle: "Cargá tus datos una sola vez. Un mail equivale a una preinscripción.",
+    pregunta: "¿Cuándo y dónde es la fiesta?",
+    respuesta:
+      "La fecha y la sede se anunciarán por los canales oficiales de la Municipalidad de San Miguel de Tucumán. Podés completar tu preinscripción desde ahora.",
   },
   {
-    titulo: "Guardá tu QR",
-    detalle: "Al confirmar te mostramos el comprobante. Descargalo o compartilo con vos mismo.",
+    pregunta: "¿Cómo recibo y uso mi QR?",
+    respuesta:
+      "Al confirmar, tu comprobante con QR aparece en pantalla. Descargalo y presentalo al ingresar para validar tu preinscripción. Es personal: no lo compartas con otras personas.",
   },
   {
-    titulo: "Presentalo en el ingreso",
-    detalle: "El personal del evento escanea el QR y valida tu preinscripción en el momento.",
+    pregunta: "¿Puedo inscribir a varias personas con el mismo correo?",
+    respuesta:
+      "Cada correo electrónico identifica una única preinscripción. Para registrar a otra persona, necesitás usar un correo diferente.",
   },
 ];
 
 export default function PaginaPrincipal() {
   return (
-    <>
-      <header className="hero relative isolate overflow-hidden bg-smt-oscuro text-white">
-        {/* Foto de los lapachos en flor sobre Avenida Mate de Luna, como textura del hero. */}
-        <Image
-          src="/hero-lapachos.jpg"
-          alt=""
-          aria-hidden="true"
-          fill
-          priority
-          sizes="100vw"
-          className="-z-20 object-cover object-center"
-        />
-        <div className="mx-auto max-w-contenido px-5 pb-12 pt-8 sm:px-8 sm:pb-16 sm:pt-10">
-          <LogoSmt />
+    <div className="fiesta-landing landing-inscripcion">
+      <AnimacionesLanding />
+      <a href="#preinscripcion" className="saltar-contenido">
+        Ir al formulario de preinscripción
+      </a>
 
-          <p className="mt-8 text-sm font-bold uppercase tracking-[0.14em] text-white">
-            Municipalidad de San Miguel de Tucumán
-          </p>
-
-          <h1 className="mt-3 max-w-3xl text-3xl leading-tight text-white sm:text-5xl">
-            Fiesta de la Ciudad — San Miguel de Tucumán
-          </h1>
-
-          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-white/90">
-            Una jornada abierta para celebrar a la ciudad, con música, gastronomía y actividades
-            para toda la familia. La fecha y la sede se informan por los canales oficiales del
-            municipio.
-          </p>
-
-          <p className="mt-6 max-w-2xl text-base font-bold text-white">
-            Preinscribite y recibí tu comprobante con código QR para ingresar sin demoras.
-          </p>
-
-          <a
-            href="#preinscripcion"
-            className="mt-7 inline-flex items-center justify-center rounded-xl bg-smt-amarillo px-6 py-3.5 text-base font-bold text-smt-tinta transition-colors hover:bg-[#e6ce16]"
-          >
-            Ir a la preinscripción
-          </a>
+      <header className="encabezado-institucional">
+        <div className="cabecera-fiesta">
+        <a href="#inicio" className="marca-fiesta" aria-label="Fiesta de la Ciudad, inicio">
+          <Image
+            src="/logo-smt-blanco.png"
+            alt="Ciudad San Miguel de Tucumán"
+            width={507}
+            height={206}
+            priority
+            className="logo-ciudad-oficial"
+          />
+        </a>
+        <span className="cabecera-inscripcion">
+          <Icono nombre="ticket" /> Fiesta de la Ciudad
+        </span>
+        <a href="#preinscripcion" className="boton-fiesta boton-nav">
+          Inscribirme <Icono nombre="flecha" />
+        </a>
         </div>
-        <LineaInstitucional />
       </header>
 
-      <main className="mx-auto max-w-contenido px-5 py-10 sm:px-8 sm:py-14">
-        <div className="grid gap-8 lg:grid-cols-5 lg:items-start">
-          <section id="preinscripcion" className="tarjeta p-6 sm:p-8 lg:col-span-3" aria-labelledby="titulo-preinscripcion">
-            <TituloSeccion id="titulo-preinscripcion">Preinscripción</TituloSeccion>
-            <p className="mt-3 text-base leading-relaxed text-smt-texto">
-              Todos los campos son obligatorios. Revisá que el mail sea correcto: es el dato con el
-              que identificamos tu preinscripción.
+      <main id="inicio">
+        <section className="portada-inscripcion" aria-labelledby="titulo-fiesta">
+          <div className="presentacion-inscripcion">
+            <p className="sobre-titulo entrada-hero">
+              <span className="punto-vivo" /> PREINSCRIPCIÓN GRATUITA Y PERSONAL
+            </p>
+            <h1 id="titulo-fiesta" className="titulo-fiesta">
+              <span className="linea-titulo"><span>La ciudad</span></span>
+              <span className="linea-titulo"><span>está de</span></span>
+              <span className="linea-titulo">
+                <span className="palabra-fiesta">
+                  fiesta<span className="punto-acento">.</span>
+                  <svg viewBox="0 0 380 24" aria-hidden="true">
+                    <path d="M5 15 Q175 -3 372 12 M40 22 Q220 6 330 19" />
+                  </svg>
+                </span>
+              </span>
+            </h1>
+            <div className="invitacion-inscripcion entrada-hero">
+              <h2>Y vos sos parte.</h2>
+              <p>Completá tus datos y obtené tu comprobante con QR para la Fiesta de la Ciudad.</p>
+            </div>
+            <div className="beneficios-inscripcion entrada-hero">
+              <span><Icono nombre="check" /> Gratis</span>
+              <span><Icono nombre="ticket" /> QR al finalizar</span>
+              <span><Icono nombre="persona" /> Personal</span>
+            </div>
+            <div className="recuerdo-ciudad entrada-hero" data-parallax>
+              <Image
+                src="/hero-lapachos.jpg"
+                alt="Lapachos rosados en la avenida Mate de Luna de San Miguel de Tucumán"
+                fill
+                priority
+                sizes="(max-width: 760px) 1px, 42vw"
+                className="imagen-lapachos"
+              />
+              <div className="foto-velo" />
+              <span>Nos encontramos en nuestra ciudad.</span>
+              <Icono nombre="estrella" className="destello-recuerdo" />
+            </div>
+          </div>
+
+          <section id="preinscripcion" className="tarjeta-registro entrada-hero" aria-labelledby="titulo-preinscripcion">
+            <div className="registro-card-top">
+              <span>FIESTA DE LA CIUDAD</span>
+              <span><span className="punto-vivo" /> GRATUITA</span>
+            </div>
+            <h2 id="titulo-preinscripcion">Preinscribite acá.</h2>
+            <p className="registro-intro">
+              Completá los cuatro campos y guardá tu QR.<br />
+              Todos los datos son obligatorios.
             </p>
             <FormularioPreinscripcion />
           </section>
+        </section>
 
-          <aside className="tarjeta p-6 sm:p-8 lg:col-span-2" aria-labelledby="titulo-pasos">
-            <TituloSeccion id="titulo-pasos">Cómo funciona</TituloSeccion>
-            <ol className="mt-5 space-y-5">
-              {PASOS.map((paso, indice) => (
-                <li key={paso.titulo} className="flex gap-4">
-                  <span
-                    aria-hidden="true"
-                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#eaf2ff] text-base font-extrabold text-smt-profundo"
-                  >
-                    {indice + 1}
-                  </span>
-                  <div>
-                    <p className="font-bold text-smt-tinta">{paso.titulo}</p>
-                    <p className="mt-1 text-sm leading-relaxed text-smt-texto">{paso.detalle}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-
-            <p className="mt-6 rounded-xl border border-smt-linea bg-[#f7faff] p-4 text-sm leading-relaxed text-smt-gris">
-              La preinscripción es gratuita y personal. No compartas tu código QR: es tu
-              comprobante de ingreso.
-            </p>
-          </aside>
+        <div className="informacion-inscripcion" data-reveal>
+          <div>
+            <span className="icono-fecha"><Icono nombre="calendario" /></span>
+            <p><strong>Fecha y lugar: próximamente</strong><span>Se anunciarán por los canales oficiales del municipio.</span></p>
+          </div>
+          <div>
+            <span className="icono-fecha"><Icono nombre="ticket" /></span>
+            <p><strong>Al terminar, guardá tu comprobante</strong><span>Presentá tu QR en el ingreso para validar tu preinscripción.</span></p>
+          </div>
         </div>
+
+        <section id="preguntas" className="seccion-fiesta seccion-preguntas" aria-labelledby="titulo-preguntas">
+          <div data-reveal>
+            <p className="sobre-titulo">TE AYUDAMOS A INSCRIBIRTE</p>
+            <h2 id="titulo-preguntas">¿Alguna duda?</h2>
+            <p>Lo que necesitás saber sobre tu preinscripción.</p>
+          </div>
+          <div className="preguntas-lista" data-reveal>
+            {PREGUNTAS.map((item) => (
+              <details key={item.pregunta}>
+                <summary>{item.pregunta}<span aria-hidden="true">+</span></summary>
+                <div className="respuesta-pregunta"><p>{item.respuesta}</p></div>
+              </details>
+            ))}
+          </div>
+        </section>
       </main>
 
-      <PieInstitucional />
-    </>
+      <footer className="footer-inscripcion">
+        <div className="organismo-institucional">
+          <Image src="/logo-muni-iso.png" alt="" width={235} height={235} className="logo-municipal" />
+          <p><strong>Municipalidad de San Miguel de Tucumán</strong><span>Fiesta de la Ciudad · Preinscripción gratuita y personal</span></p>
+        </div>
+        <div className="credito-desarrollo">
+          <span>DESARROLLO</span>
+          <Image src="/logo-ia.png" alt="Dirección de Inteligencia Artificial" width={526} height={217} className="logo-direccion-ia" />
+        </div>
+        <a href="#preinscripcion">Ir al formulario <Icono nombre="flecha" /></a>
+      </footer>
+    </div>
   );
 }

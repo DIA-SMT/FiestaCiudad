@@ -1,0 +1,930 @@
+/* Identidad y movimiento de la Fiesta de la Ciudad. Aislado de los comprobantes. */
+.fiesta-landing {
+  --azul: #126ff5;
+  --azul-medio: #2589ea;
+  --azul-profundo: #28469f;
+  --azul-oscuro: #0d3fb0;
+  --celeste: #3cb4f0;
+  --amarillo: #f2d91c;
+  --tinta: #10233d;
+  --texto: #33414f;
+  --gris: #6b7885;
+  --linea: #e3e8ef;
+  --papel: #fbfcfe;
+  --rosa: #f2d91c;
+  background: var(--papel);
+  color: var(--tinta);
+  overflow: clip;
+}
+.fiesta-landing h1, .fiesta-landing h2, .fiesta-landing h3 {
+  color: inherit;
+}
+.fiesta-landing section[id] {
+  scroll-margin-top: 32px;
+}
+.saltar-contenido {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 100;
+  padding: 12px 20px;
+  background: white;
+  transform: translateY(-180%);
+}
+.saltar-contenido:focus {
+  transform: none;
+}
+.cabecera-fiesta {
+  max-width: 1320px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px 48px;
+  border-bottom: 1px solid #213c7b14;
+}
+.encabezado-institucional {
+  background: linear-gradient(112deg, var(--azul-oscuro) 0%, var(--azul) 58%, var(--azul-medio) 100%);
+  position: relative;
+}
+.encabezado-institucional::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--amarillo) 0 22%, var(--celeste) 22% 100%);
+}
+.logo-ciudad-oficial { width: 176px; height: auto; object-fit: contain; }
+.encabezado-institucional .cabecera-fiesta { border-bottom: 0; }
+.encabezado-institucional .boton-nav { background: white; color: var(--azul-profundo); }
+.encabezado-institucional .boton-nav:hover { background: #f4f8ff; color: var(--azul-oscuro); }
+.marca-fiesta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--azul);
+  font-size: 36px;
+  font-weight: 850;
+  letter-spacing: -2px;
+  line-height: .9;
+}
+.marca-flor {
+  width: 45px;
+  height: 45px;
+}
+.marca-localidad {
+  display: block;
+  font-size: 7px;
+  letter-spacing: 1.25px;
+  margin-top: 8px;
+  font-weight: 750;
+}
+.boton-fiesta {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 22px;
+  min-height: 56px;
+  background: var(--azul);
+  color: white;
+  padding: 16px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 650;
+  overflow: hidden;
+  transition: transform .25s, box-shadow .25s, background .25s;
+}
+.boton-fiesta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 25%, #ffffff25 48%, transparent 70%);
+  transform: translateX(-130%);
+  transition: transform .6s;
+}
+.boton-fiesta:hover::before {
+  transform: translateX(130%);
+}
+.boton-fiesta:hover {
+  background: #183bc2;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px #126ff52b;
+}
+.boton-fiesta svg {
+  width: 19px;
+  transition: transform .25s;
+}
+.boton-fiesta:hover svg {
+  transform: translateX(4px);
+}
+.boton-nav {
+  min-height: 43px;
+  padding: 10px 19px;
+  font-size: 12px;
+}
+.sobre-titulo {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 1.5px;
+  color: var(--azul);
+}
+.punto-vivo {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 4px #126ff510;
+}
+.titulo-fiesta {
+  font-size: clamp(76px, 8.1vw, 110px);
+  line-height: .96;
+  letter-spacing: -7px;
+  margin: 27px 0 26px;
+  font-weight: 850;
+  color: var(--azul) !important;
+}
+.linea-titulo {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 9px;
+  margin-bottom: -9px;
+}
+.linea-titulo > span {
+  display: inline-block;
+}
+.palabra-fiesta {
+  position: relative;
+  padding-bottom: 15px;
+}
+.palabra-fiesta svg {
+  position: absolute;
+  width: 92%;
+  height: 22px;
+  bottom: 0;
+  left: 0;
+  fill: none;
+  stroke: var(--rosa);
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+.punto-rosa {
+  color: var(--amarillo);
+}
+.punto-acento { color: var(--amarillo); }
+.imagen-lapachos {
+  object-fit: cover;
+  transform: translateY(var(--desplazamiento-foto, 0px)) scale(1.22);
+}
+.foto-velo {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #061c2526, transparent 35%, #0d2028aa);
+}
+.seccion-fiesta {
+  max-width: 1230px;
+  margin: auto;
+  padding: 100px 48px;
+}
+.fiesta-landing h2 {
+  font-size: clamp(32px, 3.3vw, 45px);
+  font-weight: 720;
+  line-height: 1.12;
+  letter-spacing: -1.8px;
+  margin-top: 17px;
+}
+.icono-fecha {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  background: #efeee7;
+  border-radius: 9px;
+  flex-shrink: 0;
+}
+.icono-fecha svg {
+  width: 19px;
+}
+.tarjeta-registro {
+  position: relative;
+  min-width: 0;
+  background: #fff;
+  padding: 32px;
+  border: 1px solid #e2e5ef;
+  border-radius: 17px;
+  box-shadow: 0 18px 65px #20387e0c;
+}
+.registro-card-top {
+  display: flex;
+  justify-content: space-between;
+  color: #65728a;
+  font-size: 8px;
+  font-weight: 750;
+  letter-spacing: 1.3px;
+  margin-bottom: 23px;
+}
+.registro-card-top > span:last-child {
+  color: #33805f;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.tarjeta-registro h2 {
+  font-size: 27px;
+  letter-spacing: -1px;
+  margin-top: 0;
+}
+.registro-intro {
+  font-size: 12px;
+  color: #768094;
+  line-height: 1.8;
+  margin-top: 10px;
+}
+.formulario-fiesta {
+  margin-top: 22px;
+}
+.progreso-formulario {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+  color: #7a8292;
+  font-size: 10px;
+}
+.progreso-barras {
+  display: flex;
+  gap: 5px;
+  flex: 1;
+  max-width: 125px;
+}
+.progreso-barras > span {
+  width: 25%;
+  height: 3px;
+  border-radius: 5px;
+  background: #eceef4;
+  transition: background .3s;
+}
+.progreso-barras > .completo {
+  background: var(--azul);
+}
+.campos-fiesta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 21px 15px;
+}
+.campo-ancho {
+  grid-column: 1 / -1;
+}
+.formulario-fiesta .etiqueta {
+  font-size: 11px;
+  font-weight: 650;
+  margin-bottom: 8px;
+}
+.contenedor-campo {
+  position: relative;
+}
+.icono-campo {
+  position: absolute;
+  left: 13px;
+  top: 16px;
+  width: 17px;
+  height: 17px;
+  color: #8e99ad;
+  pointer-events: none;
+  transition: color .2s;
+}
+.contenedor-campo:focus-within .icono-campo {
+  color: var(--azul);
+}
+.formulario-fiesta .campo {
+  border-radius: 7px;
+  padding: 14px 32px 14px 39px;
+  background: #fbfcfe;
+  border-color: #e3e7ef;
+  font-size: 13px;
+  min-height: 49px;
+  transition: border-color .2s, box-shadow .2s, background .2s;
+}
+.formulario-fiesta .campo:focus {
+  outline: none;
+  border-color: var(--azul);
+  box-shadow: 0 0 0 3px #126ff513;
+  background: white;
+}
+.formulario-fiesta .campo::placeholder {
+  color: #939caf;
+}
+.formulario-fiesta .campo-invalido {
+  border-color: #c33149;
+  background: #fff8f9;
+}
+.formulario-fiesta .ayuda {
+  font-size: 10px;
+  line-height: 1.6;
+  margin-top: 7px;
+  color: #7b8597;
+}
+.formulario-fiesta .mensaje-error {
+  font-size: 11px;
+  color: #ba2840;
+  font-weight: 550;
+}
+.check-campo {
+  position: absolute;
+  right: 11px;
+  top: 17px;
+  width: 15px;
+  height: 15px;
+  color: #2b8c66;
+}
+.formulario-enviar {
+  margin-top: 26px;
+}
+.formulario-enviar .boton-fiesta {
+  width: 100%;
+  border-radius: 7px;
+  min-height: 52px;
+  font-size: 12px;
+}
+.formulario-enviar .boton-fiesta:disabled {
+  cursor: wait;
+  opacity: .7;
+  transform: none;
+}
+.formulario-enviar > p {
+  margin-top: 11px;
+  text-align: center;
+  font-size: 9px;
+  color: #7a8496;
+  line-height: 1.7;
+}
+.privacidad-formulario {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-top: 1px solid #edf0f5;
+  margin-top: 20px;
+  padding-top: 17px;
+  font-size: 9px;
+  color: #7b8494;
+}
+.privacidad-formulario svg {
+  width: 13px;
+  height: 13px;
+}
+.spinner-fiesta {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #ffffff55;
+  border-top-color: white;
+  border-radius: 50%;
+  animation: girar .8s linear infinite;
+}
+.seccion-preguntas {
+  border-top: 1px solid #17275b18;
+  display: grid;
+  grid-template-columns: .8fr 1.2fr;
+  gap: 85px;
+  padding-top: 72px;
+}
+.seccion-preguntas > div > p:not(.sobre-titulo) {
+  margin-top: 20px;
+  color: #748093;
+  font-size: 13px;
+  line-height: 1.8;
+}
+.preguntas-lista details {
+  border-bottom: 1px solid #dce0e7;
+}
+.preguntas-lista summary {
+  cursor: pointer;
+  padding: 22px 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 650;
+  list-style: none;
+}
+.preguntas-lista summary::-webkit-details-marker {
+  display: none;
+}
+.preguntas-lista summary > span {
+  font-size: 24px;
+  font-weight: 300;
+  transition: transform .25s;
+  color: var(--azul);
+}
+.preguntas-lista details[open] summary > span {
+  transform: rotate(45deg);
+}
+.respuesta-pregunta {
+  font-size: 12px;
+  line-height: 1.9;
+  color: #6b778b;
+  padding: 0 32px 23px 0;
+}
+.preguntas-lista details[open] .respuesta-pregunta {
+  animation: aparecer .3s ease both;
+}
+@keyframes subir-titulo {
+  from {
+    transform: translateY(115%) rotate(4deg);
+  }
+  to {
+    transform: translateY(0) rotate(0);
+  }
+}
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes subrayar {
+  from {
+    stroke-dashoffset: 400;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+  .linea-titulo > span {
+    animation: subir-titulo .95s cubic-bezier(.16,1,.3,1) both;
+  }
+  .linea-titulo:nth-child(2) > span {
+    animation-delay: .12s;
+  }
+  .linea-titulo:nth-child(3) > span {
+    animation-delay: .24s;
+  }
+  .entrada-hero {
+    animation: aparecer .9s ease both;
+  }
+  .palabra-fiesta path {
+    stroke-dasharray: 400;
+    animation: subrayar 1.2s ease .6s both;
+  }
+  [data-reveal].revelar-pendiente {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity .8s ease var(--reveal-delay, 0ms), transform .8s cubic-bezier(.16,1,.3,1) var(--reveal-delay, 0ms);
+  }
+  [data-reveal].revelado, [data-reveal]:focus-within {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (max-width: 1050px) {
+  .cabecera-fiesta {
+    padding-inline: 30px;
+  }
+  .titulo-fiesta {
+    font-size: 85px;
+    letter-spacing: -5px;
+  }
+  .seccion-fiesta {
+    padding-inline: 30px;
+  }
+  .seccion-preguntas {
+    gap: 40px;
+  }
+  .tarjeta-registro {
+    padding: 25px;
+  }
+}
+@media (max-width: 760px) {
+  .cabecera-fiesta {
+    padding: 22px;
+  }
+  .marca-fiesta {
+    font-size: 31px;
+  }
+  .marca-flor {
+    width: 37px;
+    height: 37px;
+  }
+  .marca-localidad {
+    font-size: 6px;
+    letter-spacing: 1px;
+  }
+  .boton-nav {
+    min-height: 40px;
+    padding: 9px 13px;
+    gap: 9px;
+  }
+  .sobre-titulo {
+    font-size: 8px;
+    letter-spacing: 1.1px;
+  }
+  .titulo-fiesta {
+    font-size: clamp(76px, 15vw, 110px);
+    line-height: .94;
+    margin-block: 24px;
+    letter-spacing: -5px;
+  }
+  .seccion-fiesta {
+    padding: 65px 24px;
+  }
+  .fiesta-landing h2 {
+    font-size: 33px;
+    letter-spacing: -1.3px;
+  }
+  .tarjeta-registro {
+    padding: 25px 22px;
+  }
+  .tarjeta-registro h2 {
+    font-size: 25px;
+  }
+  .campos-fiesta {
+    grid-template-columns: 1fr;
+  }
+  .formulario-fiesta .campo {
+    font-size: 16px;
+  }
+  .formulario-fiesta .etiqueta {
+    font-size: 12px;
+  }
+  .formulario-fiesta .ayuda {
+    font-size: 11px;
+  }
+  .formulario-enviar .boton-fiesta {
+    font-size: 13px;
+  }
+  .privacidad-formulario, .formulario-enviar > p {
+    font-size: 10px;
+  }
+  .seccion-preguntas {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  .preguntas-lista summary {
+    font-size: 13px;
+  }
+}
+@media (max-width: 370px) {
+  .seccion-fiesta {
+    padding-inline: 18px;
+  }
+  .titulo-fiesta {
+    font-size: 73px;
+  }
+  .sobre-titulo {
+    font-size: 7px;
+  }
+  .tarjeta-registro {
+    padding-inline: 17px;
+  }
+  .tarjeta-registro h2 {
+    font-size: 23px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .fiesta-landing *, .fiesta-landing *::before, .fiesta-landing *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .imagen-lapachos {
+    transform: scale(1.22);
+  }
+}
+/* La inscripción es la acción central: formulario visible desde la portada. */
+.cabecera-inscripcion {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12px;
+  color: #707b91;
+}
+.cabecera-inscripcion svg {
+  width: 18px;
+  height: 18px;
+  color: var(--azul);
+}
+.portada-inscripcion {
+  display: grid;
+  grid-template-columns: .95fr 1.05fr;
+  gap: 85px;
+  max-width: 1210px;
+  margin: auto;
+  padding: 46px 48px 55px;
+  align-items: start;
+}
+.presentacion-inscripcion {
+  padding-top: 10px;
+  min-width: 0;
+}
+.landing-inscripcion .titulo-fiesta {
+  font-size: clamp(72px, 7vw, 91px);
+  letter-spacing: -5px;
+  margin: 22px 0 16px;
+}
+.invitacion-inscripcion h2 {
+  font-size: 26px;
+  letter-spacing: -.7px;
+  margin-top: 0;
+}
+.invitacion-inscripcion p {
+  max-width: 335px;
+  color: #6b778b;
+  font-size: 14px;
+  line-height: 1.8;
+  margin-top: 10px;
+}
+.beneficios-inscripcion {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 21px;
+  margin-top: 22px;
+  font-size: 11px;
+}
+.beneficios-inscripcion > span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.beneficios-inscripcion svg {
+  width: 17px;
+  height: 17px;
+  color: var(--azul);
+}
+.recuerdo-ciudad {
+  position: relative;
+  height: 130px;
+  margin-top: 30px;
+  overflow: hidden;
+  border-radius: 9px 40px 9px 9px;
+}
+.recuerdo-ciudad .imagen-lapachos {
+  object-position: center 46%;
+}
+.recuerdo-ciudad .foto-velo {
+  background: linear-gradient(0deg, #132344aa, #13234405);
+}
+.recuerdo-ciudad > span {
+  position: absolute;
+  left: 18px;
+  bottom: 17px;
+  color: white;
+  font-size: 12px;
+  font-weight: 550;
+}
+.flor-recuerdo {
+  position: absolute;
+  width: 43px;
+  height: 43px;
+  right: 16px;
+  top: 16px;
+  color: #f0b3d1;
+  --flor-centro: #2448d8;
+}
+.destello-recuerdo { position: absolute; width: 36px; height: 36px; right: 18px; top: 18px; color: var(--amarillo); stroke-width: 1.2; }
+.landing-inscripcion .tarjeta-registro {
+  border-top: 4px solid var(--azul);
+  padding: 28px 32px;
+  box-shadow: 0 18px 65px #20387e10;
+}
+.landing-inscripcion .tarjeta-registro > h2 {
+  font-size: 34px;
+  letter-spacing: -1.5px;
+}
+.landing-inscripcion .registro-card-top {
+  margin-bottom: 20px;
+}
+.landing-inscripcion .formulario-fiesta {
+  margin-top: 20px;
+}
+.landing-inscripcion .progreso-formulario {
+  margin-bottom: 22px;
+}
+.informacion-inscripcion {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 35px;
+  max-width: 1114px;
+  margin: 0 auto;
+  padding: 27px 0;
+  border-top: 1px solid #17275b18;
+}
+.informacion-inscripcion > div {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.informacion-inscripcion p {
+  font-size: 11px;
+  line-height: 1.7;
+}
+.informacion-inscripcion strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 650;
+}
+.informacion-inscripcion p > span {
+  color: #6b778b;
+}
+.landing-inscripcion .seccion-preguntas {
+  max-width: 1210px;
+  padding-top: 42px;
+  padding-bottom: 55px;
+  border-top: 0;
+  gap: 70px;
+}
+.landing-inscripcion .seccion-preguntas h2 {
+  font-size: 30px;
+}
+.landing-inscripcion .seccion-preguntas > div > p:not(.sobre-titulo) {
+  margin-top: 12px;
+  font-size: 12px;
+}
+.footer-inscripcion {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  border-top: 1px solid #17275b18;
+  padding: 25px max(48px, calc((100vw - 1114px) / 2));
+  font-size: 10px;
+}
+.organismo-institucional, .credito-desarrollo { display: flex; align-items: center; gap: 10px; }
+.logo-municipal { width: 34px; height: 34px; object-fit: contain; }
+.logo-direccion-ia { width: 116px; height: auto; object-fit: contain; }
+.credito-desarrollo { margin-left: auto; gap: 9px; }
+.credito-desarrollo > span { color: #8490a3; font-size: 8px; letter-spacing: 1px; font-weight: 700; }
+.footer-inscripcion .organismo-institucional p { margin: 0; }
+.footer-inscripcion strong {
+  font-weight: 650;
+}
+.footer-inscripcion p > span {
+  display: block;
+  color: #798293;
+  margin-top: 5px;
+}
+.footer-inscripcion > a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--azul);
+  font-weight: 650;
+}
+.footer-inscripcion svg {
+  width: 17px;
+  height: 17px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .flor-recuerdo {
+    animation: girar 40s linear infinite;
+  }
+  .recuerdo-ciudad {
+    animation-delay: .4s;
+  }
+  .invitacion-inscripcion {
+    animation-delay: .25s;
+  }
+  .beneficios-inscripcion {
+    animation-delay: .35s;
+  }
+  .landing-inscripcion .tarjeta-registro.entrada-hero {
+    animation-delay: .15s;
+  }
+}
+@media (max-width: 1050px) {
+  .portada-inscripcion {
+    padding: 38px 30px 40px;
+    gap: 35px;
+  }
+  .landing-inscripcion .titulo-fiesta {
+    font-size: 78px;
+  }
+  .landing-inscripcion .tarjeta-registro {
+    padding: 25px;
+  }
+  .informacion-inscripcion {
+    margin-inline: 30px;
+  }
+  .beneficios-inscripcion {
+    gap: 13px;
+  }
+}
+@media (max-width: 760px) {
+  .cabecera-inscripcion {
+    display: none;
+  }
+  .landing-inscripcion .cabecera-fiesta {
+    padding-block: 17px;
+  }
+  .logo-ciudad-oficial {
+    width: 142px;
+  }
+  .portada-inscripcion {
+    grid-template-columns: 1fr;
+    padding: 26px 22px 30px;
+    gap: 25px;
+  }
+  .presentacion-inscripcion {
+    padding-top: 0;
+  }
+  .landing-inscripcion .titulo-fiesta {
+    font-size: clamp(43px, 10vw, 64px);
+    letter-spacing: -2.5px;
+    margin: 15px 0 14px;
+    line-height: 1.06;
+  }
+  .landing-inscripcion .linea-titulo {
+    display: inline-block;
+    margin-right: .2em;
+  }
+  .landing-inscripcion .linea-titulo:last-child {
+    margin-right: 0;
+  }
+  .landing-inscripcion .palabra-fiesta {
+    padding-bottom: 9px;
+  }
+  .landing-inscripcion .palabra-fiesta svg {
+    height: 12px;
+  }
+  .invitacion-inscripcion h2 {
+    font-size: 21px;
+  }
+  .invitacion-inscripcion p {
+    font-size: 13px;
+    line-height: 1.6;
+    margin-top: 6px;
+    max-width: 420px;
+  }
+  .beneficios-inscripcion {
+    margin-top: 15px;
+    font-size: 10px;
+    gap: 18px;
+  }
+  .beneficios-inscripcion svg {
+    width: 15px;
+    height: 15px;
+  }
+  .recuerdo-ciudad {
+    display: none;
+  }
+  .landing-inscripcion .tarjeta-registro {
+    padding: 24px 22px;
+  }
+  .landing-inscripcion .tarjeta-registro > h2 {
+    font-size: 29px;
+    letter-spacing: -1px;
+  }
+  .informacion-inscripcion {
+    grid-template-columns: 1fr;
+    gap: 21px;
+    margin-inline: 22px;
+    padding-block: 24px;
+  }
+  .landing-inscripcion .seccion-preguntas {
+    padding: 28px 22px 38px;
+    gap: 12px;
+  }
+  .landing-inscripcion .seccion-preguntas h2 {
+    font-size: 28px;
+  }
+  .footer-inscripcion {
+    padding: 23px 22px;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 18px;
+  }
+}
+@media (max-width: 370px) {
+  .portada-inscripcion {
+    padding-inline: 17px;
+  }
+  .landing-inscripcion .tarjeta-registro {
+    padding-inline: 17px;
+  }
+  .landing-inscripcion .titulo-fiesta {
+    font-size: 40px;
+  }
+}

@@ -4,6 +4,7 @@ import { useActionState, useId, useState, type FormEvent } from "react";
 
 import { preinscribir } from "@/app/acciones";
 import { ESTADO_INICIAL } from "@/lib/formulario";
+import { Icono } from "@/components/identidad-fiesta";
 import {
   hayErrores,
   validarPreinscripcion,
@@ -45,12 +46,12 @@ const CAMPOS: DefinicionCampo[] = [
   },
   {
     nombre: "mail",
-    etiqueta: "Mail",
+    etiqueta: "Correo electrónico",
     tipo: "email",
     autoComplete: "email",
     placeholder: "nombre@correo.com",
     inputMode: "email",
-    ayuda: "A este mail lo usamos para identificar tu preinscripción.",
+    ayuda: "Revisalo: identifica tu preinscripción.",
     maxLength: 160,
   },
   {
@@ -119,13 +120,20 @@ export default function FormularioPreinscripcion() {
 
   const avisoGeneral = estado.mensaje;
   const esAdvertencia = estado.tono === "advertencia";
+  const validacionActual = validarPreinscripcion(valores);
+  const completos = CAMPOS.filter((campo) => !validacionActual[campo.nombre]).length;
+  const iconos = { nombre_completo: "persona", telefono: "telefono", mail: "mail", direccion: "ubicacion" } as const;
 
   return (
-    <form action={accion} onSubmit={alEnviar} noValidate className="mt-6 space-y-5">
+    <form action={accion} onSubmit={alEnviar} noValidate className="formulario-fiesta" aria-busy={pendiente}>
+      <div className="progreso-formulario">
+        <span>{completos === 4 ? "Todo listo para confirmar" : "Tu lugar empieza acá"} · {completos}/4</span>
+        <div className="progreso-barras" aria-hidden="true">{CAMPOS.map((campo, i) => <span key={campo.nombre} className={i < completos ? "completo" : ""} />)}</div>
+      </div>
       {avisoGeneral ? (
         <p
           role="alert"
-          className={`rounded-xl border px-4 py-3 text-sm font-bold ${
+          className={`mb-5 rounded-xl border px-4 py-3 text-sm font-bold ${
             esAdvertencia
               ? "border-smt-ambar bg-[#fffbeb] text-[#8a5a00]"
               : "border-smt-rojo bg-[#fef5f5] text-smt-rojo"
@@ -135,6 +143,7 @@ export default function FormularioPreinscripcion() {
         </p>
       ) : null}
 
+      <div className="campos-fiesta">
       {CAMPOS.map((campo) => {
         const error = errorDe(campo.nombre);
         const descritoPor = [campo.ayuda ? idAyuda(campo.nombre) : null, error ? idError(campo.nombre) : null]
@@ -142,10 +151,12 @@ export default function FormularioPreinscripcion() {
           .join(" ");
 
         return (
-          <div key={campo.nombre}>
+          <div key={campo.nombre} className={campo.nombre === "nombre_completo" || campo.nombre === "direccion" ? "campo-ancho" : ""}>
             <label className="etiqueta" htmlFor={idCampo(campo.nombre)}>
               {campo.etiqueta}
             </label>
+            <div className="contenedor-campo">
+            <Icono nombre={iconos[campo.nombre]} className="icono-campo" />
             <input
               id={idCampo(campo.nombre)}
               name={campo.nombre}
@@ -154,6 +165,8 @@ export default function FormularioPreinscripcion() {
               autoComplete={campo.autoComplete}
               placeholder={campo.placeholder}
               maxLength={campo.maxLength}
+              required
+              readOnly={pendiente}
               value={valores[campo.nombre]}
               onChange={(evento) => alCambiar(campo.nombre, evento.target.value)}
               onBlur={() => alSalir(campo.nombre)}
@@ -161,13 +174,15 @@ export default function FormularioPreinscripcion() {
               aria-describedby={descritoPor || undefined}
               className={`campo ${error ? "campo-invalido" : ""}`}
             />
+            {tocados[campo.nombre] && !validacionActual[campo.nombre] && !error ? <Icono nombre="check" className="check-campo" /> : null}
+            </div>
             {campo.ayuda ? (
               <p id={idAyuda(campo.nombre)} className="ayuda">
                 {campo.ayuda}
               </p>
             ) : null}
             {error ? (
-              <p id={idError(campo.nombre)} className="mensaje-error">
+              <p id={idError(campo.nombre)} className="mensaje-error" aria-live="polite">
                 <span aria-hidden="true">•</span>
                 <span>{error}</span>
               </p>
@@ -175,15 +190,17 @@ export default function FormularioPreinscripcion() {
           </div>
         );
       })}
+      </div>
 
-      <div className="pt-1">
-        <button type="submit" className="boton-primario" disabled={pendiente}>
-          {pendiente ? "Enviando…" : "Confirmar preinscripción"}
+      <div className="formulario-enviar">
+        <button type="submit" className="boton-fiesta" disabled={pendiente}>
+          {pendiente ? <><span className="spinner-fiesta" aria-hidden="true" /> Generando tu comprobante…</> : <>Confirmar mi preinscripción <Icono nombre="flecha" /></>}
         </button>
-        <p className="ayuda">
-          Al confirmar vas a recibir tu comprobante con código QR en pantalla.
+        <p role="status">
+          {pendiente ? "Estamos procesando tu preinscripción." : "Tu comprobante con QR aparecerá en la siguiente pantalla."}
         </p>
       </div>
+      <p className="privacidad-formulario"><Icono nombre="escudo" /> Tus datos se usan para organizar el ingreso al evento.</p>
     </form>
   );
 }
