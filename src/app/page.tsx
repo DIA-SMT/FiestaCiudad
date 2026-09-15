@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import FormularioPreinscripcion from "@/components/formulario-preinscripcion";
 import { LineaInstitucional, LogoSmt, PieInstitucional, TituloSeccion } from "@/components/marca";
 
@@ -19,11 +21,21 @@ const PASOS = [
 export default function PaginaPrincipal() {
   return (
     <>
-      <header className="hero bg-hero-smt text-white">
+      <header className="hero relative isolate overflow-hidden bg-smt-oscuro text-white">
+        {/* Foto de los lapachos en flor sobre Avenida Mate de Luna, como textura del hero. */}
+        <Image
+          src="/hero-lapachos.jpg"
+          alt=""
+          aria-hidden="true"
+          fill
+          priority
+          sizes="100vw"
+          className="-z-20 object-cover object-center"
+        />
         <div className="mx-auto max-w-contenido px-5 pb-12 pt-8 sm:px-8 sm:pb-16 sm:pt-10">
           <LogoSmt />
 
-          <p className="mt-8 text-sm font-bold uppercase tracking-[0.14em] text-smt-amarillo">
+          <p className="mt-8 text-sm font-bold uppercase tracking-[0.14em] text-white">
             Municipalidad de San Miguel de Tucumán
           </p>
 

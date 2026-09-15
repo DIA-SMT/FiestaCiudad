@@ -19,7 +19,7 @@ function Encabezado({ titulo }: { titulo: string }) {
     <header className="hero bg-hero-smt text-white">
       <div className="mx-auto max-w-contenido px-5 pb-10 pt-8 sm:px-8 sm:pt-10">
         <LogoSmt />
-        <p className="mt-8 text-sm font-bold uppercase tracking-[0.14em] text-smt-amarillo">
+        <p className="mt-8 text-sm font-bold uppercase tracking-[0.14em] text-white">
           Fiesta de la Ciudad — San Miguel de Tucumán
         </p>
         <h1 className="mt-3 text-3xl leading-tight text-white sm:text-4xl">{titulo}</h1>
