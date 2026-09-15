@@ -3,7 +3,15 @@
 import { randomBytes } from "node:crypto";
 import { redirect } from "next/navigation";
 
-import { CAMPO_TRAMPA, ESTADO_INICIAL, type EstadoFormulario } from "@/lib/formulario";
+import { cookies } from "next/headers";
+
+import {
+  CAMPO_CONSENTIMIENTO,
+  CAMPO_TRAMPA,
+  COOKIE_COMPROBANTE,
+  ESTADO_INICIAL,
+  type EstadoFormulario,
+} from "@/lib/formulario";
 import { huellaDelPedido, registrarIntento, verificarLimite } from "@/lib/limites";
 import { clienteAnonimo } from "@/lib/supabase";
 import {
@@ -42,6 +50,16 @@ export async function preinscribir(
       valores,
       mensaje: "No pudimos registrar la preinscripción. Probá de nuevo en unos minutos.",
       tono: "error",
+    };
+  }
+
+  // El consentimiento es obligatorio: sin el no se guarda ningun dato.
+  if (!formData.get(CAMPO_CONSENTIMIENTO)) {
+    return {
+      ...ESTADO_INICIAL,
+      valores,
+      mensaje: "Para preinscribirte necesitamos que aceptes el uso de tus datos.",
+      tono: "advertencia",
     };
   }
 
@@ -117,6 +135,17 @@ export async function preinscribir(
       tono: "error",
     };
   }
+
+  // Cookie para recuperar el comprobante si se cierra la pestana. No es
+  // httpOnly a proposito: la lee un componente de cliente para ofrecer el
+  // enlace. El codigo ya viaja en la URL y dentro del QR, asi que no agrega
+  // exposicion.
+  (await cookies()).set(COOKIE_COMPROBANTE, codigo, {
+    maxAge: 60 * 60 * 24 * 120,
+    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
+    path: "/",
+  });
 
   // redirect() lanza una excepcion de control: va fuera de cualquier try/catch.
   redirect(`/confirmacion/${codigo}`);

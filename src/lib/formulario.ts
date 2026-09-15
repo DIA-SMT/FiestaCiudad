@@ -6,6 +6,21 @@ import type { CamposPreinscripcion, ErroresPreinscripcion } from "@/lib/validaci
  */
 export const CAMPO_TRAMPA = "sitio_web";
 
+/** Casilla obligatoria de consentimiento de datos personales. */
+export const CAMPO_CONSENTIMIENTO = "consentimiento";
+
+/**
+ * Casilla donde escribir para ejercer los derechos de acceso, rectificacion y
+ * supresion (Ley 25.326). CAMBIAR por la casilla institucional real.
+ */
+export const CONTACTO_DATOS = "privacidad@smt.gob.ar";
+
+/** Dias que se conservan los datos despues del evento. */
+export const DIAS_RETENCION = 90;
+
+/** Nombre de la cookie que permite recuperar el comprobante en el mismo navegador. */
+export const COOKIE_COMPROBANTE = "comprobante_fiesta";
+
 /** Estado que el server action devuelve al formulario. */
 export type EstadoFormulario = {
   errores: ErroresPreinscripcion;

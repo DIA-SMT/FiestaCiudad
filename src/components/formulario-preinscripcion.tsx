@@ -3,7 +3,13 @@
 import { useActionState, useId, useState, type FormEvent } from "react";
 
 import { preinscribir } from "@/app/acciones";
-import { CAMPO_TRAMPA, ESTADO_INICIAL } from "@/lib/formulario";
+import {
+  CAMPO_CONSENTIMIENTO,
+  CAMPO_TRAMPA,
+  CONTACTO_DATOS,
+  DIAS_RETENCION,
+  ESTADO_INICIAL,
+} from "@/lib/formulario";
 import { Icono } from "@/components/identidad-fiesta";
 import {
   hayErrores,
@@ -71,6 +77,11 @@ export default function FormularioPreinscripcion() {
   const [erroresCliente, setErroresCliente] = useState<ErroresPreinscripcion>({});
   const [tocados, setTocados] = useState<Partial<Record<NombreCampo, boolean>>>({});
   const [editados, setEditados] = useState<Partial<Record<NombreCampo, boolean>>>({});
+  const [acepta, setAcepta] = useState(false);
+  const [errorConsentimiento, setErrorConsentimiento] = useState<string | undefined>();
+
+  const idConsentimiento = `${idBase}-consentimiento`;
+  const idErrorConsentimiento = `${idBase}-consentimiento-error`;
 
   const idCampo = (campo: NombreCampo) => `${idBase}-${campo}`;
   const idError = (campo: NombreCampo) => `${idBase}-${campo}-error`;
@@ -112,6 +123,14 @@ export default function FormularioPreinscripcion() {
       if (primero) {
         document.getElementById(idCampo(primero.nombre))?.focus();
       }
+      return;
+    }
+
+    // El consentimiento es obligatorio: sin el no se manda nada al servidor.
+    if (!acepta) {
+      evento.preventDefault();
+      setErrorConsentimiento("Para preinscribirte necesitamos que aceptes el uso de tus datos.");
+      document.getElementById(idConsentimiento)?.focus();
       return;
     }
 
@@ -196,6 +215,68 @@ export default function FormularioPreinscripcion() {
           </div>
         );
       })}
+      </div>
+
+      <div className="mt-5 rounded-xl border border-smt-linea bg-[#f7faff] p-4">
+        <details className="text-sm leading-relaxed text-smt-texto">
+          <summary className="cursor-pointer font-bold text-smt-tinta">
+            Cómo usamos y protegemos tus datos
+          </summary>
+          <div className="mt-3 space-y-2">
+            <p>
+              <strong>Responsable:</strong> Municipalidad de San Miguel de Tucumán.
+            </p>
+            <p>
+              <strong>Qué guardamos:</strong> nombre completo, teléfono, mail y dirección.
+            </p>
+            <p>
+              <strong>Para qué:</strong> organizar y verificar tu ingreso a la Fiesta de la
+              Ciudad. No se usan para ninguna otra finalidad ni se comparten con terceros.
+            </p>
+            <p>
+              <strong>Cómo los protegemos:</strong> viajan cifrados, se guardan en una base que no
+              es accesible desde el navegador, y tu comprobante se valida con un código aleatorio
+              que no se puede adivinar. En la pantalla de verificación del ingreso solo se muestran
+              tu nombre y la fecha: nunca tu teléfono, tu mail ni tu dirección.
+            </p>
+            <p>
+              <strong>Cuánto tiempo:</strong> se eliminan a los {DIAS_RETENCION} días de realizado
+              el evento.
+            </p>
+            <p>
+              <strong>Tus derechos:</strong> podés pedir acceder, rectificar o suprimir tus datos
+              escribiendo a{" "}
+              <a className="font-bold text-smt-azul underline" href={"mailto:" + CONTACTO_DATOS}>
+                {CONTACTO_DATOS}
+              </a>
+              . Ley 25.326 de Protección de Datos Personales. La autoridad de control es la
+              Agencia de Acceso a la Información Pública.
+            </p>
+          </div>
+        </details>
+
+        <label htmlFor={idConsentimiento} className="mt-4 flex items-start gap-3 text-sm font-bold text-smt-tinta">
+          <input
+            id={idConsentimiento}
+            name={CAMPO_CONSENTIMIENTO}
+            type="checkbox"
+            checked={acepta}
+            onChange={(evento) => {
+              setAcepta(evento.target.checked);
+              if (evento.target.checked) setErrorConsentimiento(undefined);
+            }}
+            aria-invalid={errorConsentimiento ? true : undefined}
+            aria-describedby={errorConsentimiento ? idErrorConsentimiento : undefined}
+            className="mt-0.5 h-5 w-5 shrink-0 accent-smt-azul"
+          />
+          <span>Acepto que la Municipalidad use estos datos para organizar mi ingreso al evento.</span>
+        </label>
+        {errorConsentimiento ? (
+          <p id={idErrorConsentimiento} className="mensaje-error">
+            <span aria-hidden="true">•</span>
+            <span>{errorConsentimiento}</span>
+          </p>
+        ) : null}
       </div>
 
       <div className="formulario-enviar">

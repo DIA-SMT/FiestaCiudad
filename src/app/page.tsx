@@ -1,4 +1,5 @@
 import Image from "next/image";
+import AvisoComprobante from "@/components/aviso-comprobante";
 import FormularioPreinscripcion from "@/components/formulario-preinscripcion";
 import { AnimacionesLanding } from "@/components/animaciones-landing";
 import { Icono } from "@/components/identidad-fiesta";
@@ -102,6 +103,7 @@ export default function PaginaPrincipal() {
               Completá los cuatro campos y guardá tu QR.<br />
               Todos los datos son obligatorios.
             </p>
+            <AvisoComprobante />
             <FormularioPreinscripcion />
           </section>
         </section>
