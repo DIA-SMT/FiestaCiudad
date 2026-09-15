@@ -3,7 +3,8 @@
 import { randomBytes } from "node:crypto";
 import { redirect } from "next/navigation";
 
-import { ESTADO_INICIAL, type EstadoFormulario } from "@/lib/formulario";
+import { CAMPO_TRAMPA, ESTADO_INICIAL, type EstadoFormulario } from "@/lib/formulario";
+import { huellaDelPedido, registrarIntento, verificarLimite } from "@/lib/limites";
 import { clienteAnonimo } from "@/lib/supabase";
 import {
   hayErrores,
@@ -33,11 +34,36 @@ export async function preinscribir(
 ): Promise<EstadoFormulario> {
   const valores = normalizarCampos(leerCampos(formData));
 
+  // Trampa para bots: el campo va oculto, una persona nunca lo completa.
+  if (String(formData.get(CAMPO_TRAMPA) ?? "").trim() !== "") {
+    console.warn("[preinscripcion] envío descartado por el campo trampa");
+    return {
+      ...ESTADO_INICIAL,
+      valores,
+      mensaje: "No pudimos registrar la preinscripción. Probá de nuevo en unos minutos.",
+      tono: "error",
+    };
+  }
+
   // Validacion del lado del servidor: no depende de lo que haga el navegador.
   const errores = validarPreinscripcion(valores);
   if (hayErrores(errores)) {
     return { ...ESTADO_INICIAL, errores, valores };
   }
+
+  // Limite por IP: nadie puede llenar el padron de forma automatizada.
+  // Si el limitador falla, deja pasar: preferimos no frenar a nadie de verdad.
+  const huella = await huellaDelPedido();
+  const limite = await verificarLimite(huella);
+  if (!limite.permitido) {
+    return {
+      ...ESTADO_INICIAL,
+      valores,
+      mensaje: limite.mensaje ?? "Probá de nuevo más tarde.",
+      tono: "advertencia",
+    };
+  }
+  await registrarIntento(huella);
 
   const supabase = clienteAnonimo();
   let codigo = "";

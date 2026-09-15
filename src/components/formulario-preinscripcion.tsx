@@ -3,7 +3,7 @@
 import { useActionState, useId, useState, type FormEvent } from "react";
 
 import { preinscribir } from "@/app/acciones";
-import { ESTADO_INICIAL } from "@/lib/formulario";
+import { CAMPO_TRAMPA, ESTADO_INICIAL } from "@/lib/formulario";
 import { Icono } from "@/components/identidad-fiesta";
 import {
   hayErrores,
@@ -126,6 +126,12 @@ export default function FormularioPreinscripcion() {
 
   return (
     <form action={accion} onSubmit={alEnviar} noValidate className="formulario-fiesta" aria-busy={pendiente}>
+      {/* Trampa para bots: invisible y fuera del recorrido de teclado y de lectores de pantalla. */}
+      <div aria-hidden="true" style={{ position: "absolute", left: "-9999px", width: 1, height: 1, overflow: "hidden" }}>
+        <label htmlFor={CAMPO_TRAMPA}>No completes este campo</label>
+        <input id={CAMPO_TRAMPA} name={CAMPO_TRAMPA} type="text" tabIndex={-1} autoComplete="off" defaultValue="" />
+      </div>
+
       <div className="progreso-formulario">
         <span>{completos === 4 ? "Todo listo para confirmar" : "Tu lugar empieza acá"} · {completos}/4</span>
         <div className="progreso-barras" aria-hidden="true">{CAMPOS.map((campo, i) => <span key={campo.nombre} className={i < completos ? "completo" : ""} />)}</div>

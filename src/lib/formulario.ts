@@ -1,5 +1,11 @@
 import type { CamposPreinscripcion, ErroresPreinscripcion } from "@/lib/validacion";
 
+/**
+ * Campo trampa para bots: va oculto en el formulario y una persona nunca lo
+ * completa. Si llega con contenido, el envio se descarta.
+ */
+export const CAMPO_TRAMPA = "sitio_web";
+
 /** Estado que el server action devuelve al formulario. */
 export type EstadoFormulario = {
   errores: ErroresPreinscripcion;

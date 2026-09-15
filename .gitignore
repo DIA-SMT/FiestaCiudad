@@ -9,3 +9,6 @@ build/
 *.tsbuildinfo
 next-env.d.ts
 .vercel
+
+# Respaldos del padron: contienen datos personales, nunca al repositorio
+respaldos/

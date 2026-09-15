@@ -41,6 +41,42 @@ También se puede aplicar con la CLI:
 supabase db push
 ```
 
+## 2 bis. Endurecimiento antes de abrir al público
+
+Antes de publicar el formulario, ejecutá también
+[`supabase/migration-002-endurecimiento.sql`](supabase/migration-002-endurecimiento.sql)
+en **SQL Editor**. Hace dos cosas:
+
+- **Le saca a `service_role` el permiso de modificar o borrar el padrón.** La app solo
+  lee con esa clave, así que no se rompe nada, y una clave filtrada ya no puede vaciar
+  la tabla. El rol `postgres` (Table Editor del panel) conserva el acceso completo.
+- **Crea `intentos_preinscripcion`**, que sostiene el límite por IP.
+
+Mientras no la corras, la app funciona igual: el limitador está hecho para **fallar
+abierto**, es decir, si no puede consultar la tabla deja pasar la preinscripción.
+Preferimos un límite que no frena antes que una landing que no deja anotarse.
+
+### Límite por IP
+
+Por defecto **8 preinscripciones por hora y 30 por día** desde una misma IP. Son
+generosos porque en una oficina o en el wifi municipal mucha gente comparte IP. Se
+cambian en [`src/lib/limites.ts`](src/lib/limites.ts). Las IP se guardan hasheadas con
+HMAC, nunca en claro, y los intentos se purgan solos a las 48 h.
+
+El formulario incluye además un campo trampa oculto: si llega completo, el envío se
+descarta sin tocar la base.
+
+### Respaldo del padrón
+
+```bash
+npm run respaldo
+```
+
+Deja un CSV en `respaldos/`, carpeta ignorada por git porque contiene datos
+personales. **Corrélo antes de abrir la preinscripción y una vez por día mientras
+esté abierta**, y guardá una copia fuera de la máquina: el plan Free de Supabase no
+tiene restauración a un punto en el tiempo.
+
 ## 3. Configurar las variables de entorno
 
 ```bash
