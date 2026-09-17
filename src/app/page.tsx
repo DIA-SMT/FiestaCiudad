@@ -1,6 +1,7 @@
 import Image from "next/image";
 import AvisoComprobante from "@/components/aviso-comprobante";
 import FormularioPreinscripcion from "@/components/formulario-preinscripcion";
+import GaleriaCiudad from "@/components/galeria-ciudad";
 import { AnimacionesLanding } from "@/components/animaciones-landing";
 import { Icono } from "@/components/identidad-fiesta";
 
@@ -78,19 +79,7 @@ export default function PaginaPrincipal() {
               <span><Icono nombre="ticket" /> QR al finalizar</span>
               <span><Icono nombre="persona" /> Personal</span>
             </div>
-            <div className="recuerdo-ciudad entrada-hero" data-parallax>
-              <Image
-                src="/hero-lapachos.jpg"
-                alt="Lapachos rosados en la avenida Mate de Luna de San Miguel de Tucumán"
-                fill
-                priority
-                sizes="(max-width: 760px) 1px, 42vw"
-                className="imagen-lapachos"
-              />
-              <div className="foto-velo" />
-              <span>Nos encontramos en nuestra ciudad.</span>
-              <Icono nombre="estrella" className="destello-recuerdo" />
-            </div>
+            <GaleriaCiudad />
           </div>
 
           <section id="preinscripcion" className="tarjeta-registro entrada-hero" aria-labelledby="titulo-preinscripcion">

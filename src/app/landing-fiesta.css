@@ -674,37 +674,100 @@
   height: 17px;
   color: var(--azul);
 }
-.recuerdo-ciudad {
+.galeria-ciudad {
   position: relative;
-  height: 130px;
   margin-top: 30px;
+}
+.galeria-portada {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 130px;
   overflow: hidden;
   border-radius: 9px 40px 9px 9px;
+  background: #dce7f5;
+  color: white;
+  text-align: left;
+  cursor: zoom-in;
+  box-shadow: 0 12px 28px rgba(16, 35, 61, .1);
+  isolation: isolate;
 }
-.recuerdo-ciudad .imagen-lapachos {
-  object-position: center 46%;
+.galeria-portada:focus-visible {
+  outline: 3px solid var(--azul);
+  outline-offset: 4px;
 }
-.recuerdo-ciudad .foto-velo {
-  background: linear-gradient(0deg, #132344aa, #13234405);
+.galeria-imagen {
+  object-fit: cover;
+  object-position: center;
+  opacity: 0;
+  transform: scale(1.045);
+  transition: opacity .75s ease, transform 5.2s ease;
+  z-index: -2;
 }
-.recuerdo-ciudad > span {
+.galeria-imagen-activa {
+  opacity: 1;
+  transform: scale(1);
+}
+.galeria-velo {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(90deg, rgba(5, 21, 48, .68), rgba(5, 21, 48, .04) 72%);
+}
+.galeria-titulo {
   position: absolute;
   left: 18px;
   bottom: 17px;
-  color: white;
   font-size: 12px;
-  font-weight: 550;
+  font-weight: 650;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, .25);
 }
-.flor-recuerdo {
+.galeria-ampliar {
   position: absolute;
-  width: 43px;
-  height: 43px;
-  right: 16px;
-  top: 16px;
-  color: #f0b3d1;
-  --flor-centro: #2448d8;
+  right: 15px;
+  bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 10px;
+  border: 1px solid rgba(255, 255, 255, .48);
+  border-radius: 999px;
+  background: rgba(8, 26, 57, .36);
+  backdrop-filter: blur(7px);
+  font-size: 9px;
+  font-weight: 650;
+  transition: background .2s, transform .2s;
 }
-.destello-recuerdo { position: absolute; width: 36px; height: 36px; right: 18px; top: 18px; color: var(--amarillo); stroke-width: 1.2; }
+.galeria-portada:hover .galeria-ampliar { background: rgba(18, 111, 245, .85); transform: translateY(-2px); }
+.galeria-indicadores {
+  position: absolute;
+  z-index: 2;
+  left: 18px;
+  top: 14px;
+  display: flex;
+  gap: 6px;
+}
+.galeria-indicadores button {
+  width: 18px;
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .5);
+  transition: width .3s, background .3s;
+}
+.galeria-indicadores button.activo { width: 34px; background: white; }
+.galeria-indicadores button:focus-visible { outline: 2px solid var(--amarillo); outline-offset: 3px; }
+.visor-galeria { --azul: #126ff5; position: fixed; inset: 0; z-index: 500; display: grid; place-items: center; padding: 30px; }
+.visor-fondo { position: absolute; inset: 0; width: 100%; height: 100%; background: rgba(4, 13, 30, .88); backdrop-filter: blur(12px); cursor: zoom-out; }
+.visor-contenido { position: relative; z-index: 1; width: min(1180px, 92vw); animation: aparecer .32s ease both; }
+.visor-imagen { position: relative; width: 100%; aspect-ratio: 1570 / 528; overflow: hidden; border-radius: 12px; background: #0c1c37; box-shadow: 0 28px 80px rgba(0, 0, 0, .4); }
+.visor-imagen img { object-fit: contain; }
+.visor-pie { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding-top: 17px; color: white; }
+.visor-pie strong { display: block; color: white; font-size: 16px; }
+.visor-pie span { display: block; margin-top: 4px; color: rgba(255, 255, 255, .6); font-size: 11px; }
+.visor-controles { display: flex; gap: 9px; }
+.visor-controles button, .visor-cerrar { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid rgba(255, 255, 255, .35); border-radius: 50%; background: rgba(255, 255, 255, .1); color: white; font-size: 19px; transition: background .2s, transform .2s; }
+.visor-controles button:hover, .visor-cerrar:hover { background: var(--azul); transform: translateY(-2px); }
+.visor-cerrar { position: fixed; z-index: 2; top: 22px; right: 24px; font-size: 25px; }
 .landing-inscripcion .tarjeta-registro {
   border-top: 4px solid var(--azul);
   padding: 28px 32px;
@@ -730,7 +793,7 @@
   max-width: 1114px;
   margin: 0 auto;
   padding: 27px 0;
-  border-top: 1px solid #17275b18;
+  border-top: 1px solid #10233d18;
 }
 .informacion-inscripcion > div {
   display: flex;
@@ -798,10 +861,7 @@
   height: 17px;
 }
 @media (prefers-reduced-motion: no-preference) {
-  .flor-recuerdo {
-    animation: girar 40s linear infinite;
-  }
-  .recuerdo-ciudad {
+  .galeria-ciudad {
     animation-delay: .4s;
   }
   .invitacion-inscripcion {
@@ -887,8 +947,39 @@
     width: 15px;
     height: 15px;
   }
-  .recuerdo-ciudad {
-    display: none;
+  .galeria-ciudad {
+    margin-top: 20px;
+  }
+  .galeria-portada {
+    height: 124px;
+    border-radius: 9px 30px 9px 9px;
+  }
+  .galeria-titulo {
+    left: 14px;
+    bottom: 14px;
+    max-width: 55%;
+    font-size: 11px;
+  }
+  .galeria-ampliar {
+    right: 11px;
+    bottom: 11px;
+  }
+  .galeria-indicadores {
+    left: 14px;
+    top: 12px;
+  }
+  .visor-galeria {
+    padding: 18px;
+  }
+  .visor-contenido {
+    width: 100%;
+  }
+  .visor-imagen {
+    aspect-ratio: 4 / 3;
+  }
+  .visor-cerrar {
+    top: 14px;
+    right: 14px;
   }
   .landing-inscripcion .tarjeta-registro {
     padding: 24px 22px;
